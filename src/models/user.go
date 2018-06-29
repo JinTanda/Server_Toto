@@ -8,9 +8,9 @@ type User struct{
 	University string `json:university"`
 	Name string `json:"name"`
 	Email string `json:"mail"`
-	password string `json:"password"`
-	department string `json:"department"`
-	major string `json:"major"`
+	Password string `json:"password"`
+	Department string `json:"department"`
+	Major string `json:"major"`
 }
 
 type Users []User

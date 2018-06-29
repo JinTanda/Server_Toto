@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "encoding/json"
 	"net/http"
 	"log"
 	"./logger"
@@ -13,7 +12,8 @@ import (
 func SettingRouter() *httprouter.Router{
 	router := httprouter.New()
 	router.GET("/", logger.Logging(handlers.Index,"Index"))
-	router.GET("/users", logger.Logging(handlers.Users, "Users"))
+	router.GET("/users", logger.Logging(handlers.GetUsers, "GetUsers"))
+	router.POST("/users", logger.Logging(handlers.PostUser, "PostUser"))
 	return router
 }
 
