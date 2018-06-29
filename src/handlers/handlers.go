@@ -17,16 +17,7 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 }
 
 func GetClasses(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
-	classes := models.Classes{
-		models.Class{
-			ID: "1",
-			Name: "統計的データ解析特論",
-			Teacher: "烏山",
-			Room: "0221",
-			Time: "月1",
-			University: "NIT",
-		},
-	}
+	classes := TestModelOfClasses()
 	log.Println(classes)
 
 	w.Header().Set("Content-Type","appilication.json; charset=UTF-8")
@@ -55,6 +46,22 @@ func PostClass(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 	}
 	bytes,_ := json.Marshal(&class)
 	log.Println(string(bytes))
+}
+
+func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
+	time := ps.ByName("time")
+	user_id := ps.ByName("user_id")
+	log.Println(time,user_id)
+	// classes := database.getClassWithTime(time,user_id)
+	classes := TestModelOfClasses()
+
+	w.Header().Set("Content-Type","appilication.json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(classes); err != nil {
+		panic(err)
+	}
+
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
@@ -99,4 +106,27 @@ func PostUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 	// log.Println(user)
 	bytes,_ := json.Marshal(&user)
 	log.Println(string(bytes))
+}
+
+
+func TestModelOfClasses() models.Classes{
+	classes := models.Classes{
+		models.Class{
+			ID: "1",
+			Name: "統計的データ解析特論",
+			Teacher: "烏山",
+			Room: "0221",
+			Time: "月1",
+			University: "NIT",
+		},
+		models.Class{
+			ID: "2",
+			Name: "線形代数",
+			Teacher: "橋本",
+			Room: "5221",
+			Time: "火2",
+			University: "NIT",
+		},
+	}
+	return classes
 }

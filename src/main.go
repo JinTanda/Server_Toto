@@ -15,6 +15,7 @@ func SettingRouter() *httprouter.Router{
 	router.GET("/users", logger.Logging(handlers.GetUsers, "GetUsers"))
 	router.POST("/users", logger.Logging(handlers.PostUser, "PostUser"))
 	router.GET("/classes", logger.Logging(handlers.GetClasses,"GetClasses"))
+	router.GET("/classes/:user_id/:time", logger.Logging(handlers.GetClassWithTime, "GetClassWithTime"))
 	router.POST("/classes", logger.Logging(handlers.PostClass,"PostClass"))
 	return router
 }
