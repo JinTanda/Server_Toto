@@ -103,7 +103,7 @@ func PostUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 		}
 		return
 	}
-	// log.Println(user)
+	log.Println(user)
 	bytes,_ := json.Marshal(&user)
 	log.Println(string(bytes))
 }

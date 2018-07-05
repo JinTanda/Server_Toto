@@ -2,7 +2,8 @@ import requests
 import json
 
 def main():
-	getClassWithTime("月2","test_id")
+	# getClassWithTime("月2","test_id")
+	postClass()
 
 def getClassWithTime(time,user_id):
 	uri = "http://localhost:8000/classes/" + time + "/" + user_id
