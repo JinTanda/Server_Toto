@@ -6,12 +6,12 @@ def main():
 	postClass()
 
 def getClassWithTime(time,user_id):
-	uri = "http://localhost:8000/classes/" + time + "/" + user_id
+	uri = "http://itolab@hydra.itolab.nitech.ac.jp:8000/classes/" + time + "/" + user_id
 	r = requests.get(uri)
 	print(r.json())
 
 def postClass():
-	uri = "http://localhost:8000/classes"
+	uri = "http://itolab@hydra.itolab.nitech.ac.jp:8000/classes"
 	# data = {'Name': 'yoshino'}
 	data = {'Name': '知能情報処理モデル特論', 'Time': '月1'}
 	headers = {'content-type': 'application/json'}

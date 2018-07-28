@@ -64,8 +64,14 @@ func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 
 }
 
+func GetClassByID(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
+	id = ps.ByName("id")
+	//Get class information from database by id
+	
+}
+
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
-	//Get all users data from data base.
+	//Get all users data from database.
 	users := models.Users{
 		models.User{
 			ID: "1",
