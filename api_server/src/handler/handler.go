@@ -3,11 +3,14 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	"../models"
 	"log"
 	"encoding/json"
 	"io"
 	"io/ioutil"
+	"strconv"
+
+	models "../models"
+	connecter "../connecter"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -45,7 +48,8 @@ func PostClass(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 		return
 	}
 	bytes,_ := json.Marshal(&class)
-	log.Println(string(bytes))
+	log.Println("PostClassData : ", string(bytes))
+	connecter.PostClass(class)
 }
 
 func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
@@ -65,9 +69,19 @@ func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 }
 
 func GetClassByID(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
-	id = ps.ByName("id")
+	id, err := strconv.Atoi(ps.ByName("id"))
+	if err != nil {
+		panic(err)
+	}
+
 	//Get class information from database by id
-	
+	class := connecter.GetClassByID(id)
+	w.Header().Set("Content-Type","appilication.json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(class); err != nil {
+		panic(err)
+	}
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
@@ -118,19 +132,19 @@ func PostUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 func TestModelOfClasses() models.Classes{
 	classes := models.Classes{
 		models.Class{
-			ID: "1",
+			ID: 1,
 			Name: "統計的データ解析特論",
 			Teacher: "烏山",
 			Room: "0221",
-			Time: "月1",
+			Class_time: "月1",
 			University: "NIT",
 		},
 		models.Class{
-			ID: "2",
+			ID: 2,
 			Name: "線形代数",
 			Teacher: "橋本",
 			Room: "5221",
-			Time: "火2",
+			Class_time: "火2",
 			University: "NIT",
 		},
 	}

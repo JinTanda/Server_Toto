@@ -5,7 +5,7 @@ type Class struct{
 	Name string `json:"name"`
 	Teacher string `json:"teacher"`
 	Room string `json:"room"`
-	Time string `json:"time"`
+	Class_time string `json:"time"`
 	University string `json:"university"`
 	Document string `json:"document"`
 }
