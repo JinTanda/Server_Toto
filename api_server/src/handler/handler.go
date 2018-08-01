@@ -50,6 +50,13 @@ func PostClass(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 	bytes,_ := json.Marshal(&class)
 	log.Println("PostClassData : ", string(bytes))
 	connecter.PostClass(class)
+
+	w.Header().Set("Content-Type","appilication.json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(class); err != nil {
+		panic(err)
+	}
 }
 
 func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
@@ -69,7 +76,7 @@ func GetClassWithTime(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 }
 
 func GetClassByID(w http.ResponseWriter, r *http.Request, ps httprouter.Params){
-	id, err := strconv.Atoi(ps.ByName("id"))
+	id, err := strconv.Atoi(ps.ByName("class_id"))
 	if err != nil {
 		panic(err)
 	}

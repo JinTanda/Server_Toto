@@ -17,7 +17,7 @@ def postClass():
 	data = {'Name': '知能情報処理モデル特論', 'Time': '月1'}
 	headers = {'content-type': 'application/json'}
 	r = requests.post(uri, data=json.dumps(data), headers=headers)
-	# print(r.body)
+	print(r.text)
 
 if __name__ == '__main__':
 	main()
